@@ -8,6 +8,9 @@
   const balance = +JSON.parse(fileAccount).total
   const command = process.argv[2]
 
+  axios.defaults.baseURL = 'https://finnhub.io/api/v1'
+  axios.defaults.headers.common['X-Finnhub-Token'] = process.env.FINNHUB_API_KEY
+
   /*
   GENERATE PROFIT / LOSS REPORT:
   node index.js report
@@ -38,4 +41,12 @@
     console.log(`TOTAL: $${balance.toFixed(2)}`)
   }
 
+  // VIEW A STOCK PRICE
+  else if (command.includes('symbol')) {
+    const symbol = command.split('=')[1]
+    const res = await axios.get(`/quote?symbol=${symbol}`)
+    const price = res.data.c
+
+    console.log(`${symbol} = $${price.toFixed(2)}`)
+  }
 })()
