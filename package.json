@@ -1,0 +1,21 @@
+{
+  "name": "stock-investment-simulator",
+  "version": "1.0.0",
+  "description": "FAKE Money. Real Data. Would you like to play a game?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stock",
+    "stocks",
+    "stonks",
+    "market",
+    "simulator",
+    "invest",
+    "investor",
+    "simulation"
+  ],
+  "author": "Matthew Meilahn",
+  "license": "ISC"
+}
