@@ -37,5 +37,4 @@
   else if (command.includes('account')) {
     console.log(`TOTAL: $${balance.toFixed(2)}`)
   }
-
 })()
