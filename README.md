@@ -10,3 +10,6 @@ node index.js account
 
 VIEW A STOCK PRICE:
 node index.js symbol="AAPL"
+
+BUY A STOCK:
+node index.js buy="AAPL, 10"
