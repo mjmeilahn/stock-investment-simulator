@@ -49,4 +49,34 @@
 
     console.log(`${symbol} = $${price.toFixed(2)}`)
   }
+
+  // BUY A STOCK
+  else if (command.includes('buy')) {
+    const commandSplit = command.split('=')[1]
+    const symbolShareSplit = commandSplit.split(',')
+    const symbol = symbolShareSplit[0]
+    const shares = +symbolShareSplit[1].trim()
+
+    const res = await axios.get(`/quote?symbol=${symbol}`)
+    const boughtPrice = res.data.c
+    const cost = (boughtPrice * shares)
+    const newTotal = (balance - cost).toFixed(2)
+
+    if (newTotal <= 0) return console.log('GAME OVER. YOU ARE BROKE.')
+
+    const account = JSON.stringify({ total: +newTotal }, null, 4)
+
+    const investment = {
+      symbol,
+      boughtPrice,
+      shares,
+      date: Date.now(),
+    }
+
+    stocks = [...stocks, investment]
+
+    const content = JSON.stringify(stocks, null, 4)
+
+    console.log(investment)
+  }
 })()
