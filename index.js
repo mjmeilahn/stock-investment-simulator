@@ -65,6 +65,7 @@
     if (newTotal <= 0) return console.log('GAME OVER. YOU ARE BROKE.')
 
     const account = JSON.stringify({ total: +newTotal }, null, 4)
+    fs.writeFileSync('./invest-account.json', account)
 
     const investment = {
       symbol,
@@ -76,6 +77,7 @@
     stocks = [...stocks, investment]
 
     const content = JSON.stringify(stocks, null, 4)
+    fs.writeFileSync('./invest-stocks.json', content)
 
     console.log(investment)
   }
