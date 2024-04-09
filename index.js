@@ -186,4 +186,6 @@
     console.log('NEW ACCOUNT VALUE: ' + total)
   }
 
+  // SELL ALL STOCKS
+
 })()

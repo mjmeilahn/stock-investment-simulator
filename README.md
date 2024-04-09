@@ -13,3 +13,7 @@ node index.js symbol="AAPL"
 
 BUY A STOCK:
 node index.js buy="AAPL, 10"
+
+SELL A STOCK. SELLS ALL SHARES BY DEFAULT:
+node index.js sell="AAPL"
+node index.js sell="AAPL, 2" (selling 2 shares of a larger amount)
