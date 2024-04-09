@@ -14,6 +14,8 @@ VIEW A STOCK PRICE:
 BUY A STOCK:
 > node index.js buy="AAPL, 10"
 
-SELL A STOCK. SELLS ALL SHARES BY DEFAULT:
-> node index.js sell="AAPL"<br>
-> node index.js sell="AAPL, 2" (selling 2 shares of a larger amount)
+SELL A STOCK:
+> node index.js sell="AAPL"
+
+SELL A PARTIAL AMOUNT OF STOCK:
+> node index.js sell="AAPL, 2"
