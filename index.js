@@ -165,9 +165,11 @@
     }
 
     const content = JSON.stringify(newStocks, null, 4)
+    fs.writeFileSync('./invest-stocks.json', content)
 
     const total = (balance + +deposit).toFixed(2)
     const account = JSON.stringify({ total: +total }, null, 4)
+    fs.writeFileSync('./invest-account.json', account)
 
     soldStocks.map(s => {
       console.log(`----------${s.symbol}----------`)
