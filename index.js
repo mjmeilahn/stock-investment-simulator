@@ -83,6 +83,105 @@
   }
 
   // SELL A STOCK
-  else if (command.includes('sell')) {}
+  else if (command.includes('sell')) {
+    const commandSplit = command.split('=')[1]
+    let symbol = ''
+    let partialShares = 0
+    let sellPartial = false
+
+    if (commandSplit.includes(',')) {
+      sellPartial = true
+      const symbolShareSplit = commandSplit.split(',')
+      symbol = symbolShareSplit[0]
+      partialShares = +symbolShareSplit[1].trim()
+    }
+    else {
+      symbol = commandSplit
+    }
+
+    if (stocks.filter(s => s.symbol === symbol).length === 0) {
+      return console.log('You do not own any stocks with this symbol.')
+    }
+
+    if (sellPartial === true) {
+      let count = 0
+      stocks.filter(s => {
+        if (s.symbol === symbol) {
+          count += s.shares
+        }
+      })
+
+      if (count < partialShares) {
+        return console.log('You asked to sell more shares than you have.')
+      }
+    }
+
+    let shares = 0
+    stocks.map(s => {
+      if (s.symbol === symbol) {
+        shares += +s.shares
+      }
+    })
+    const res = await axios.get(`/quote?symbol=${symbol}`)
+    const todayPrice = +res.data.c.toFixed(2)
+    let deposit = +(todayPrice * shares).toFixed(2)
+
+    const newStocks = []
+    stocks.map(s => {
+      if (s.symbol !== symbol && s.shares > 0) {
+        newStocks.push(s)
+      }
+    })
+
+    const soldStocks = []
+
+    // SELLING PARTIAL AMOUNT OF SHARES LOGIC GOES HERE
+    if (sellPartial === true) {
+      let keptShares = shares - partialShares
+
+      stocks.map((s, i) => {
+        if (s.symbol === symbol && s.shares <= keptShares) {
+          if (s.shares > 0) newStocks.push(s)
+          keptShares -= s.shares
+        }
+        else if (s.symbol === symbol && s.shares > keptShares) {
+          soldStocks.push({
+            symbol,
+            boughtPrice: s.boughtPrice,
+            shares: s.shares - keptShares,
+            date: s.date,
+          })
+          stocks[i].shares = keptShares
+          keptShares = stocks[i].shares - keptShares
+
+          if (stocks[i].shares > 0) newStocks.push(stocks[i])
+        }
+      })
+
+      deposit = (todayPrice * partialShares).toFixed(2)
+    }
+    else {
+      soldStocks.push(...stocks.filter(s => s.symbol === symbol && s.shares > 0))
+    }
+
+    const content = JSON.stringify(newStocks, null, 4)
+
+    const total = (balance + +deposit).toFixed(2)
+    const account = JSON.stringify({ total: +total }, null, 4)
+
+    soldStocks.map(s => {
+      console.log(`----------${s.symbol}----------`)
+      console.log(`Bought Price: ${s.boughtPrice.toFixed(2)}`)
+      console.log(`Selling Price: ${todayPrice.toFixed(2)}`)
+      console.log(`$ Profit Per Share: ${(todayPrice - s.boughtPrice).toFixed(2)}`)
+      console.log(`% Profit Per Share: ${(((todayPrice - s.boughtPrice) / s.boughtPrice) * 100).toFixed(1)}`)
+      console.log(`TOTAL $ PROFIT: ${((todayPrice - s.boughtPrice) * s.shares).toFixed(2)}`)
+      console.log(`TOTAL % PROFIT: ${((((todayPrice - s.boughtPrice) / s.boughtPrice) * 100) * s.shares).toFixed(1)}`)
+    })
+
+    console.log(`------------------------------`)
+    console.log('OLD ACCOUNT VALUE: ' + balance.toFixed(2))
+    console.log('NEW ACCOUNT VALUE: ' + total)
+  }
 
 })()
