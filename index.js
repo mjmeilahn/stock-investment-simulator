@@ -81,4 +81,8 @@
 
     console.log(investment)
   }
+
+  // SELL A STOCK
+  else if (command.includes('sell')) {}
+
 })()
