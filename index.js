@@ -187,6 +187,49 @@
   }
 
   // SELL ALL STOCKS
-  else if (command.includes('everythingMustGo')) {}
+  else if (command.includes('everythingMustGo')) {
+    let deposit = 0
+    const soldStocks = []
+
+    async function loopStocks () {
+      for (const s of stocks) {
+        await new Promise(resolve => setTimeout(resolve, 2000)) // API LIMITS
+        const res = await axios.get(`/quote?symbol=${s.symbol}`)
+        const todayPrice = res.data.c
+        deposit += todayPrice * s.shares
+
+        soldStocks.push({
+          symbol: s.symbol,
+          boughtPrice: s.boughtPrice,
+          shares: s.shares,
+          date: s.date,
+          todayPrice,
+        })
+      }
+    }
+    await loopStocks()
+
+    deposit = deposit.toFixed(2)
+    deposit = +deposit
+    const total = (balance + deposit).toFixed(2)
+
+    const content = JSON.stringify([], null, 4)
+
+    const account = JSON.stringify({ total: +total }, null, 4)
+
+    soldStocks.map(s => {
+      console.log(`----------${s.symbol}----------`)
+      console.log(`Bought Price: ${s.boughtPrice.toFixed(2)}`)
+      console.log(`Selling Price: ${s.todayPrice.toFixed(2)}`)
+      console.log(`$ Profit Per Share: ${(s.todayPrice - s.boughtPrice).toFixed(2)}`)
+      console.log(`% Profit Per Share: ${(((s.todayPrice - s.boughtPrice) / s.boughtPrice) * 100).toFixed(1)}`)
+      console.log(`TOTAL $ PROFIT: ${((s.todayPrice - s.boughtPrice) * s.shares).toFixed(2)}`)
+      console.log(`TOTAL % PROFIT: ${((((s.todayPrice - s.boughtPrice) / s.boughtPrice) * 100) * s.shares).toFixed(1)}`)
+    })
+
+    console.log(`------------------------------`)
+    console.log('OLD ACCOUNT VALUE: ' + balance.toFixed(2))
+    console.log('NEW ACCOUNT VALUE: ' + total)
+  }
 
 })()
