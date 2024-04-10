@@ -234,4 +234,6 @@
     console.log('NEW ACCOUNT VALUE: ' + total)
   }
 
+  // GENERATE PROFIT / LOSS REPORT
+
 })()
