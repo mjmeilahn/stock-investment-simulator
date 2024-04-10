@@ -3,6 +3,10 @@
 
 <p>Everyone starts with $100k to invest - but this amount can be changed inside account.json.</p>
 
+***
+
+HOW TO GET STARTED
+
 1. Clone & Download this Repo.
 2. Create a local .env file in this repo with the line below.
 > FINNHUB_API_KEY="XXXXXXXXXXXXXXXX"
