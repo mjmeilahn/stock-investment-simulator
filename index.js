@@ -187,5 +187,6 @@
   }
 
   // SELL ALL STOCKS
+  else if (command.includes('everythingMustGo')) {}
 
 })()
