@@ -12,7 +12,7 @@
   axios.defaults.headers.common['X-Finnhub-Token'] = process.env.FINNHUB_API_KEY
 
   /*
-  GENERATE PROFIT / LOSS REPORT:
+  VIEW PROFIT / LOSS REPORT:
   node index.js report
 
   VIEW ACCOUNT:
