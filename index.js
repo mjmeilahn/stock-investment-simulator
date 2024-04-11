@@ -235,6 +235,25 @@
   }
 
   // GENERATE PROFIT / LOSS REPORT
-  else if (command.includes('report')) {}
+  else if (command.includes('report')) {
+    const currentStocks = []
+
+    async function loopStocks () {
+      for (const s of stocks) {
+        await new Promise(resolve => setTimeout(resolve, 2000)) // API LIMITS
+        const res = await axios.get(`/quote?symbol=${s.symbol}`)
+        const todayPrice = res.data.c
+
+        currentStocks.push({
+          symbol: s.symbol,
+          boughtPrice: s.boughtPrice,
+          shares: s.shares,
+          date: s.date,
+          todayPrice,
+        })
+      }
+    }
+    await loopStocks()
+  }
 
 })()
