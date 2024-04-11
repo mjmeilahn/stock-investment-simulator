@@ -29,3 +29,6 @@ SELL A STOCK:
 
 SELL A PARTIAL AMOUNT OF STOCK:
 > node index.js sell="AAPL, 2"
+
+VIEW PROFIT / LOSS REPORT:
+> node index.js report
