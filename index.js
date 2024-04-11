@@ -254,6 +254,16 @@
       }
     }
     await loopStocks()
+
+    currentStocks.map(s => {
+      console.log(`----------${s.symbol}----------`)
+      console.log(`Bought Price: ${s.boughtPrice.toFixed(2)}`)
+      console.log(`Today Price: ${s.todayPrice.toFixed(2)}`)
+      console.log(`$ Profit Per Share: ${(s.todayPrice - s.boughtPrice).toFixed(2)}`)
+      console.log(`% Profit Per Share: ${(((s.todayPrice - s.boughtPrice) / s.boughtPrice) * 100).toFixed(1)}`)
+      console.log(`TOTAL $ PROFIT: ${((s.todayPrice - s.boughtPrice) * s.shares).toFixed(2)}`)
+      console.log(`TOTAL % PROFIT: ${((((s.todayPrice - s.boughtPrice) / s.boughtPrice) * 100) * s.shares).toFixed(1)}`)
+    })
   }
 
 })()
