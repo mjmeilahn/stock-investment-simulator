@@ -235,5 +235,6 @@
   }
 
   // GENERATE PROFIT / LOSS REPORT
+  else if (command.includes('report')) {}
 
 })()
