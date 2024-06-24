@@ -240,7 +240,7 @@
 
     async function loopStocks () {
       for (const s of stocks) {
-        await new Promise(resolve => setTimeout(resolve, 2000)) // API LIMITS
+        await new Promise(resolve => setTimeout(resolve, 2000)) // MANUAL DELAY TO AVOID API THROTTLE / LIMITS
         const res = await axios.get(`/quote?symbol=${s.symbol}`)
         const todayPrice = res.data.c
 
