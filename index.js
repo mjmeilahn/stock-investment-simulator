@@ -172,7 +172,7 @@
     fs.writeFileSync('./invest-account.json', account)
 
     soldStocks.map(s => {
-      console.log(`----------${s.symbol}----------`)
+      console.log(`----------${s.symbol} (${s.shares})----------`)
       console.log(`Bought Price: ${s.boughtPrice.toFixed(2)}`)
       console.log(`Selling Price: ${todayPrice.toFixed(2)}`)
       console.log(`$ Profit Per Share: ${(todayPrice - s.boughtPrice).toFixed(2)}`)
@@ -220,7 +220,7 @@
     fs.writeFileSync('./invest-account.json', account)
 
     soldStocks.map(s => {
-      console.log(`----------${s.symbol}----------`)
+      console.log(`----------${s.symbol} (${s.shares})----------`)
       console.log(`Bought Price: ${s.boughtPrice.toFixed(2)}`)
       console.log(`Selling Price: ${s.todayPrice.toFixed(2)}`)
       console.log(`$ Profit Per Share: ${(s.todayPrice - s.boughtPrice).toFixed(2)}`)
@@ -256,7 +256,7 @@
     await loopStocks()
 
     currentStocks.map(s => {
-      console.log(`----------${s.symbol}----------`)
+      console.log(`----------${s.symbol} (${s.shares})----------`)
       console.log(`Bought Price: ${s.boughtPrice.toFixed(2)}`)
       console.log(`Today Price: ${s.todayPrice.toFixed(2)}`)
       console.log(`$ Profit Per Share: ${(s.todayPrice - s.boughtPrice).toFixed(2)}`)
