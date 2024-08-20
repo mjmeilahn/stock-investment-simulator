@@ -1,4 +1,4 @@
-# Stock Investment Simulator
+# Stock Market Game
 <h3>FAKE Money. Real Data. Would you like to play a game?</h3>
 
 <p>Everyone starts with $100k to invest - but this amount can be changed inside account.json.</p>
